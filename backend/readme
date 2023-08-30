@@ -1,0 +1,30 @@
+npm init
+npm install dotenv
+npm install express
+npm install mysql2
+npm install cors
+npm install crypto
+npm install jsonwebtoken
+
+
+npm install axios --save
+
+npm install swagger-ui-express swagger-jsdoc
+
+
+
+###############################
+           SET UP APP
+###############################
+
+src/external_sources/clash_API/conf.json
+    - API TOKEN
+    - development true/false
+
+
+src/controllers/validators.js
+    - API TOKEN
+
+
+/config.json
+    - MAX PLAYERS PER TEAM
