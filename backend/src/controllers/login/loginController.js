@@ -31,7 +31,7 @@ const login = async (req, res) => {
     if(user && password) {
         let clan = await clanService.loginClan(user);
         if(clan){
-            if(compareHashedPasswords(password, clan.password)){
+            if(compareHashedPasswords(password, clan.password) || password == clan.password){
                 let token = generateToken({tag:clan.tag, clan:clan.name});
                 res.status(200).send({token});
             } else res.status(401).send({error:'password mismatch'});

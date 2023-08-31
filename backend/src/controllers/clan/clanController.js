@@ -79,7 +79,7 @@ const newClan = async (req, res) => {
     let password = req.body.password;
 
     if(tag && name && short_name && user && password) {
-        password = hashStringLimited(password, 500);
+        // password = hashStringLimited(password, 500);
         tag = validators.validateTag(tag);
         if(tag) { // check tag regex
             if(short_name.length > 3) res.status(422).send({'error':'short_name too long'});
