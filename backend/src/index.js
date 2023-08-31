@@ -23,7 +23,11 @@ app.use(cors());
 app.use(express.json());
 
 const server = https.createServer(options, app);
+
 server.listen(PORT, () => {
   console.log(`API is listening on port ${PORT}`);
 }); 
+server.on('error', error => {
+  console.error('Error starting HTTPS server:', error);
+});
 
