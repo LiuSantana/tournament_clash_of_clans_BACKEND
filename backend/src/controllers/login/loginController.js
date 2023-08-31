@@ -63,7 +63,7 @@ const renewToken = async (req, res) => {
         try{
             const decodedToken = jwt.verify(token, secretKey)
             if(decodedToken.tag) {
-                const newToken = generateToken({tag:decodedToken.tag, clan:decodedToken.name});
+                const newToken = generateToken({tag:decodedToken.tag, clan:decodedToken.clan});
                 if(newToken) res.status(200).send({token:newToken});
                 else res.status(500).send({error:'Internal server error'});
             } else res.status(401).send({error:'Token not valid'});
