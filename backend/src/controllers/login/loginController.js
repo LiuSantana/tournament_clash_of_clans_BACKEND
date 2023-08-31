@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const clanService = require('../../services/clan/clanService');
+const validators = require('../validators');
 const crypto = require('crypto');
 
 const secretKey = 'token-generator-secret';
@@ -39,16 +40,19 @@ const login = async (req, res) => {
 }
 
 const verifyPrivileges = async (req, res) => {
-    token = req.body.token;
-    clan = req.body.clan;
+    let token = req.body.token;
+    let clan = req.body.clan;
     if(token && clan) {
-        try{
-            const decodedToken = jwt.verify(token, secretKey);
-            if(clan == decodedToken.tag || decodedToken.tag == '#0000') res.status(200).send({data:'OK'}); 
-            else res.status(401).send({error:'You dont have privileges'})
-        } catch(err){
-            res.status(500).send({error:'Invalid token'});
-        }
+        clan = validators.validateTag(clan);
+        if(clan){
+            try{
+                const decodedToken = jwt.verify(token, secretKey);
+                if(clan == decodedToken.tag || decodedToken.tag == '#0000') res.status(200).send({data:'OK'}); 
+                else res.status(401).send({error:'You dont have privileges'})
+            } catch(err){
+                res.status(500).send({error:'Invalid token'});
+            }
+        } else res.status(422).send({error:'Clan tag is not valid'})
     } else res.status(422).send({error:'Empty params'})
 }
 
