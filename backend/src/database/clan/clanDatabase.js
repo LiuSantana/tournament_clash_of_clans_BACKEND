@@ -82,8 +82,8 @@ const newClan = async (clan) => {
 const deleteClan = async (clan) => {
 
     const connection = await conn.connection();
-    const sql = "delete from player where clan = ? ";
-    const sql2 = "delete from clan where tag = ? ";
+    const sql = "delete from PLAYER where clan = ? ";
+    const sql2 = "delete from CLAN where tag = ? ";
     try{
         const [rows, fields] = await connection.execute(sql, [clan]);
         console.log(rows)

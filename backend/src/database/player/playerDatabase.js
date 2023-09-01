@@ -7,7 +7,7 @@ const conn = require('../mysql');
 const getPlayer = async (player) => {
     const connection = await conn.connection();
 
-    const sql = "SELECT * FROM player where tag = ?";
+    const sql = "SELECT * FROM PLAYER where tag = ?";
     try{
         const [rows, fields] = await connection.execute(sql, [player]);
         console.log(rows)
@@ -50,7 +50,7 @@ const newPlayer = async (player) => {
 
 const deletePlayer = async (player) => {
     const connection = await conn.connection();
-    const sql = "delete from player where tag = ?";
+    const sql = "delete from PLAYER where tag = ?";
     try{
         const [rows, fields] = await connection.execute(sql, [player]);
         console.log(rows)
