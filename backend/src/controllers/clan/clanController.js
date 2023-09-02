@@ -135,8 +135,6 @@ const editClan = async (req, res) => {
         if(tag){ // if regex is true
             if(modifications) {
                 try {
-                    console.log(modifications)
-                    console.log(`-${tag}-`)
                     const clan = await clanService.editClan(tag, modifications);
                     if(clan) res.status(200).send({'data':clan});
                     else res.status(404).send({'error':'not found'});
