@@ -109,6 +109,7 @@ const editClan = async (tag, data) => {
     const connection = await conn.connection();
     let sql = "UPDATE clan SET";
     const values = [];
+    console.log(data);
     data.forEach(field => {
         sql += ` ${field.property} = ?,`;
         values.push(field.value)
@@ -116,6 +117,8 @@ const editClan = async (tag, data) => {
     sql = sql.slice(0, -1); // delete last ','
     values.push(tag);
     sql += ` WHERE tag = ?`
+    console.log(sql)
+    console.log(values)
     
     try{
         const [rows, fields] = await connection.execute(sql, values);
