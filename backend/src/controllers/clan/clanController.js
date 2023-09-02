@@ -130,6 +130,8 @@ const deleteClan = async (req, res) => {
 const editClan = async (req, res) => {
     let tag = decodeURIComponent(req.params.tag);
     const modifications = req.body.data;
+    console.log(modifications)
+    console.log(req.body)
     if(tag){
         tag = validators.validateTag(tag)
         if(tag){ // if regex is true
