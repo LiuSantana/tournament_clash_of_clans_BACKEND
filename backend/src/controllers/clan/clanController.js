@@ -129,14 +129,14 @@ const deleteClan = async (req, res) => {
 ******************/
 const editClan = async (req, res) => {
     let tag = decodeURIComponent(req.params.tag);
-    const modifications = req.body.data;
-    console.log(modifications)
-    console.log(req.body)
+    const modifications = req.body;
     if(tag){
         tag = validators.validateTag(tag)
         if(tag){ // if regex is true
             if(modifications) {
                 try {
+                    console.log(modifications)
+                    console.log(tag)
                     const clan = await clanService.editClan(tag, modifications);
                     if(clan) res.status(200).send({'data':clan});
                     else res.status(404).send({'error':'not found'});
