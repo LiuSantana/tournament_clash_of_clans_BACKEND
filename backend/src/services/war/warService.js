@@ -42,7 +42,7 @@ const leagueGroups = (clans, clansGroup, groups) => {
     }
     return groups_obj;
 }
-
+/* gets all the avalible matches */
 const setWars = (fase, group, clans) => {
     const matches = [];
     for(let i=0; i< clans.length; i++){
@@ -52,7 +52,33 @@ const setWars = (fase, group, clans) => {
         x++;
       }
     }
-    return matches
+    return setLeagueMatchesOrder(matches, clans)
+}
+
+const setLeagueMatchesOrder = (matches, clans) => {
+    let playedWars = [];
+    let week = 0;
+    while (playedWars.length < matches.length) {
+        week++;
+        let usedTeams = [];
+        let contador = 0;
+        // get one week wars
+        while(contador < matches.length || usedTeams.length == clans.length/2) {
+            let clanA = matches[contador].team;
+            let clanB = matches[contador].opponent;
+            // check if both clans are available this week
+            if(usedTeams.indexOf(clanA) == -1 && usedTeams.indexOf(clanB) == -1){
+                //check if war is available
+                if(playedWars.indexOf(matches[contador]) == -1){
+                    playedWars.push(matches[contador]);
+                    usedTeams.push(clanA, clanB);
+                    matches[contador].round = week;
+                }
+            }
+            contador++;
+        } 
+    }
+    return matches;
 }
 
 const playoffFormat = (teams, fase) => {

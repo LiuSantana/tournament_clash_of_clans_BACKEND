@@ -57,10 +57,26 @@ const getFaseDetails = async (fase, lastFase) => {
     return false;
 }
 
-const getWars = async () => {
+const getWarsResults = async () => {
     const connection = await conn.connection();
 
     const sql = "SELECT * FROM WAR_VIEW";
+    try {
+        const [rows, fields] = await connection.execute(sql);
+        return rows
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+}
+const getWars = async () => {
+    const connection = await conn.connection();
+
+    const sql = "SELECT * FROM WAR";
     try {
         const [rows, fields] = await connection.execute(sql);
         return rows
@@ -100,12 +116,12 @@ const saveAttacks = async (attack) => {
 const createLeagueWars = async (wars, format) => {
     const connection = await conn.connection();
 
-    const sql = "INSERT INTO WAR (clan_A, clan_B, fase, format, tournament_group) VALUES(?,?,?,?,?)";
+    const sql = "INSERT INTO WAR (clan_A, clan_B, fase, format, tournament_group, round) VALUES(?,?,?,?,?, ?)";
     try {
         for (let i = 0; i < wars.length; ++i) {
             for (let j = 0; j < wars[i].length; ++j) {
                 let war = wars[i][j];
-                const [rows, fields] = await connection.execute(sql, [war.team, war.opponent, war.fase, format, war.group]);
+                const [rows, fields] = await connection.execute(sql, [war.team, war.opponent, war.fase, format, war.group, war.round]);
             }
         }
         return true;
@@ -179,9 +195,12 @@ const updateWar = async (id, war) => {
     updateQuery += ' WHERE id = ?';
     updateValues.push(id);
 
+    console.log('AAAAAAAA')
+
 
     try {
         const [rows, fields] = await connection.execute(updateQuery, updateValues);
+        console.log(rows)
         return true;
         
     } catch(err){

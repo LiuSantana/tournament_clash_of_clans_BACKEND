@@ -126,10 +126,10 @@ const endWar = async (req, res) => {
                             const attacks = [];
                             getAttacks(id, warJSON.clan, attacks);
                             getAttacks(id, warJSON.opponent, attacks);
-
+                            
                             // SAVE ATTACKS IN BD
-                            // await warService.saveAttacks(attacks);
-                            // await warService.updateWar(id, {state:'finished'});
+                            await warService.saveAttacks(attacks);
+                            await warService.updateWar(id, {state:'finished'});
 
                             if(war.format == 'league'){
                                 if(war.last_match == 1) { // check if it is the last match of the fase
