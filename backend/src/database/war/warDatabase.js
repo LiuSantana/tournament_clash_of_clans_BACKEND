@@ -76,7 +76,8 @@ const getWarsResults = async () => {
 const getWars = async () => {
     const connection = await conn.connection();
 
-    const sql = "SELECT * FROM WAR";
+    // const sql = "SELECT * FROM WAR";
+    const sql = "select w.*, ca.name as clan_A_name, ca.short_name as clan_A_short_name, cb.name as clan_B_name, cb.short_name as clan_B_short_name from WAR as w JOIN CLAN as ca on ca.tag = w.clan_A JOIN CLAN as cb on cb.tag = w.clan_B"
     try {
         const [rows, fields] = await connection.execute(sql);
         return rows
