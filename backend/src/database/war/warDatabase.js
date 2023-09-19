@@ -57,26 +57,12 @@ const getFaseDetails = async (fase, lastFase) => {
     return false;
 }
 
-const getWarsResults = async () => {
-    const connection = await conn.connection();
 
-    const sql = "SELECT * FROM WAR_VIEW";
-    try {
-        const [rows, fields] = await connection.execute(sql);
-        return rows
-        
-    } catch(err){
-        console.error(err);
-
-    } finally {
-        connection.release();
-    }
-    return false;
-}
 const getWars = async () => {
     const connection = await conn.connection();
 
-    const sql = "SELECT * FROM WAR";
+    // const sql = "SELECT * FROM WAR";
+    const sql = "select w.*, ca.name as clan_A_name, ca.short_name as clan_A_short_name, cb.name as clan_B_name, cb.short_name as clan_B_short_name from WAR_VIEW as w JOIN CLAN as ca on ca.tag = w.clan_A JOIN CLAN as cb on cb.tag = w.clan_B"
     try {
         const [rows, fields] = await connection.execute(sql);
         return rows
@@ -97,6 +83,7 @@ const getWars = async () => {
 ******************/ 
 
 const saveAttacks = async (attack) => {
+    console.log(attack);
     const connection = await conn.connection();
 
     const sql = "INSERT INTO ATTACKS (tag,clan,war,stars,percentage,duration) VALUES (?,?,?,?,?,?)";
@@ -195,7 +182,6 @@ const updateWar = async (id, war) => {
     updateQuery += ' WHERE id = ?';
     updateValues.push(id);
 
-    console.log('AAAAAAAA')
 
 
     try {
