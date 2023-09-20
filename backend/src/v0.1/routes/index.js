@@ -55,6 +55,7 @@ router.delete('/players/:tag', playerController.removePlayer)
 const warController = require("../../controllers/war/warController");
 
 router.get('/wars', warController.getWars)
+router.get('/wars/:id/attacks', warController.getWarAttacks);
 
 router.post('/wars', warController.createTournament);
 router.post('/wars/:id', warController.endWar);

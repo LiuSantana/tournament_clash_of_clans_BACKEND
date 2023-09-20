@@ -76,6 +76,23 @@ const getWars = async () => {
     return false;
 }
 
+const getWarAttacks = async (id) => {
+    const connection = await conn.connection();
+    const sql = "select a.*, p.name from ATTACKS as a JOIN PLAYER as p ON a.tag = p.tag where war = ?";
+
+    try {
+        const [rows, fields] = await connection.execute(sql, [id]);
+        return rows
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+} 
+
 
 
 /******************
@@ -83,7 +100,6 @@ const getWars = async () => {
 ******************/ 
 
 const saveAttacks = async (attack) => {
-    console.log(attack);
     const connection = await conn.connection();
 
     const sql = "INSERT INTO ATTACKS (tag,clan,war,stars,percentage,duration) VALUES (?,?,?,?,?,?)";
@@ -214,4 +230,4 @@ const updateWarNoId = async (next_round, fase, next_round_team, winner) => {
     return false;
 }
 
-module.exports = { getGroups, getWar, getWars, getFaseDetails, createLeagueWars, createPlayoffWars, restartTournament, updateWar, updateWarNoId, saveAttacks };
+module.exports = { getGroups, getWar, getWarAttacks, getWars, getFaseDetails, createLeagueWars, createPlayoffWars, restartTournament, updateWar, updateWarNoId, saveAttacks };

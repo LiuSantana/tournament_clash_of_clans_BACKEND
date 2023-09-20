@@ -15,6 +15,10 @@ const getWars = async () => {
     return result;
 }
 
+const getWarAttacks = async (id) => {
+    const result = await warDatabase.getWarAttacks(id);
+    return result;
+}
 
 /******************
  *    POSTS
@@ -265,4 +269,4 @@ const getNextRoundLocalorVisitant = (round) => {
     return result;
   };
 
-module.exports = { getWar, getWars, firstFase, consecutiveFase, restartTournament, setFaseWars, setNextPlayoffMatch, updateWar, saveAttacks };
+module.exports = { getWar, getWarAttacks, getWars, firstFase, consecutiveFase, restartTournament, setFaseWars, setNextPlayoffMatch, updateWar, saveAttacks };
