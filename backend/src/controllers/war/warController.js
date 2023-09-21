@@ -15,6 +15,17 @@ const getWars = async (req, res) => {
     }
 };
 
+const getRanking = async (req, res) => {
+    try {
+        const wars = await warService.getRanking();
+        if(wars && wars.length>0) res.status(200).send({data:wars});
+        else res.status(404).send({'error':'No wars found'})
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({'error':'Internal server error'});
+    }
+};
+
 const getWarAttacks = async (req, res) => {
     try {
         let id = req.params.id;
@@ -185,4 +196,4 @@ const getAttacks = (id, JSON, attacks) => {
 }
 
 
-module.exports = { createTournament, getWarAttacks, getWars, endWar };
+module.exports = { createTournament, getRanking, getWarAttacks, getWars, endWar };

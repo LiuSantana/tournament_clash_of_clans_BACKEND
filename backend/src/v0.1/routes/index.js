@@ -46,7 +46,7 @@ const playerController = require("../../controllers/player/playerController");
 router.get('/players/:tag', playerController.getPlayer);
 router.get('/players/:tag/validate', playerController.validatePlayer);
 router.post('/players/', playerController.newPlayer);
-router.delete('/players/:tag', playerController.removePlayer)
+router.delete('/players/:tag', playerController.removePlayer);
 
 /**********************
  *        WAR
@@ -54,8 +54,9 @@ router.delete('/players/:tag', playerController.removePlayer)
 // maybe a tournament table is needed to manage all the wars easily
 const warController = require("../../controllers/war/warController");
 
-router.get('/wars', warController.getWars)
+router.get('/wars', warController.getWars);
 router.get('/wars/:id/attacks', warController.getWarAttacks);
+router.get('/wars/ranking', warController.getRanking);
 
 router.post('/wars', warController.createTournament);
 router.post('/wars/:id', warController.endWar);

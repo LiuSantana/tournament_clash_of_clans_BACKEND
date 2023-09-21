@@ -93,6 +93,23 @@ const getWarAttacks = async (id) => {
     return false;
 } 
 
+const getRanking = async () => {
+    const connection = await conn.connection();
+    const sql = "select * from CLASIFICATION_VIEW WHERE clan != '#0000'";
+
+    try {
+        const [rows, fields] = await connection.execute(sql, []);
+        return rows
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+}
+
 
 
 /******************
@@ -230,4 +247,4 @@ const updateWarNoId = async (next_round, fase, next_round_team, winner) => {
     return false;
 }
 
-module.exports = { getGroups, getWar, getWarAttacks, getWars, getFaseDetails, createLeagueWars, createPlayoffWars, restartTournament, updateWar, updateWarNoId, saveAttacks };
+module.exports = { getGroups, getRanking, getWar, getWarAttacks, getWars, getFaseDetails, createLeagueWars, createPlayoffWars, restartTournament, updateWar, updateWarNoId, saveAttacks };
