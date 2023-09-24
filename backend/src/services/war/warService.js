@@ -25,6 +25,11 @@ const getRanking = async () => {
     return result;
 }
 
+const getWarEnded = async (id) => {
+    const result = await warDatabase.getWarEnded(id);
+    return result;
+}
+
 /******************
  *    POSTS
 ******************/ 
@@ -37,6 +42,12 @@ const saveAttacks = async (attacks) => {
     }
     return true;
 }
+const saveDefences = async (defences) => {
+    for(let i = 0; i < defences.length; i++) {
+        await warDatabase.saveDefences(defences[i]);
+    }
+    return true;
+} 
 
 const leagueGroups = (clans, clansGroup, groups) => {
     const groups_obj = [];
@@ -211,7 +222,6 @@ const setPlayOffWars = async (warsDB, fase) => {
     }
     shuffleArray(wars);
 
-    console.log(wars)
     
     for (let i=0; i < actualFase.length; i++) {
         await updateWar(actualFase[i].id, wars[i])
@@ -219,7 +229,6 @@ const setPlayOffWars = async (warsDB, fase) => {
 }
 
 const match2Groups = (teams_group, wars, teamA, teamB) => {
-    console.log(teamA)
     for( let cA = 0; cA < teams_group; cA++ ) {
             wars.push({clan_A:teamA[cA].clan, clan_B:teamB[teams_group-1-cA].clan});
     }
@@ -274,4 +283,4 @@ const getNextRoundLocalorVisitant = (round) => {
     return result;
   };
 
-module.exports = { getWar, getRanking, getWarAttacks, getWars, firstFase, consecutiveFase, restartTournament, setFaseWars, setNextPlayoffMatch, updateWar, saveAttacks };
+module.exports = { getWar, getRanking, getWarAttacks,getWarEnded, getWars, firstFase, consecutiveFase, restartTournament, saveAttacks, saveDefences, setFaseWars, setNextPlayoffMatch, updateWar };

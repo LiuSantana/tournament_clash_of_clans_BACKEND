@@ -24,13 +24,13 @@ const getWar_prodution = async (clanA, clanB) => {
                 war = response.data;
                 if(war.clan.tag == clanA && war.opponent == clanB) {
                     result = war;
-                } else result = { error: 'Different teams in war'}
-            } else result = {error: 'war not endend'}
+                } else result = { error: 'Los clanes que participan en la guerra no son los correspondeintes.'}
+            } else result = {error: 'La guerra aun no ha finalizado, intentalo en un par de minutos.'}
         }
     })
     .catch(error => {
         if(error.response.status == 403 && error.response.data.reason == 'accessDenied' ) {
-            result = {'error':'war log not public'};
+            result = {'error':'El registro de guerra no está en público'};
         } else result = {'error':'Error al hacer la solicitud', message: error.message};
     });
 

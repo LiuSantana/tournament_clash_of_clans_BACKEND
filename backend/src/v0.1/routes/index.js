@@ -57,6 +57,7 @@ const warController = require("../../controllers/war/warController");
 router.get('/wars', warController.getWars);
 router.get('/wars/:id/attacks', warController.getWarAttacks);
 router.get('/wars/ranking', warController.getRanking);
+router.get('/wars/:id/results', warController.getWarEnded);
 
 router.post('/wars', warController.createTournament);
 router.post('/wars/:id', warController.endWar);

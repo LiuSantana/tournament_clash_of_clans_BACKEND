@@ -61,10 +61,26 @@ const getFaseDetails = async (fase, lastFase) => {
 const getWars = async () => {
     const connection = await conn.connection();
 
-    // const sql = "SELECT * FROM WAR";
     const sql = "select w.*, ca.name as clan_A_name, ca.short_name as clan_A_short_name, cb.name as clan_B_name, cb.short_name as clan_B_short_name from WAR_VIEW as w JOIN CLAN as ca on ca.tag = w.clan_A JOIN CLAN as cb on cb.tag = w.clan_B"
     try {
         const [rows, fields] = await connection.execute(sql);
+        return rows
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+}
+
+const getWarEnded = async (id) => {
+    const connection = await conn.connection();
+
+    const sql = "select w.*, ca.name as clan_A_name, ca.short_name as clan_A_short_name, cb.name as clan_B_name, cb.short_name as clan_B_short_name from WAR_VIEW as w JOIN CLAN as ca on ca.tag = w.clan_A JOIN CLAN as cb on cb.tag = w.clan_B where id = ?"
+    try {
+        const [rows, fields] = await connection.execute(sql, [id]);
         return rows
         
     } catch(err){
@@ -95,7 +111,7 @@ const getWarAttacks = async (id) => {
 
 const getRanking = async () => {
     const connection = await conn.connection();
-    const sql = "select * from CLASIFICATION_VIEW WHERE clan != '#0000'";
+    const sql = "select * from CLASIFICATION_VIEW WHERE clan != '#0000' order by pts desc, stars desc, percentage desc, duration";
 
     try {
         const [rows, fields] = await connection.execute(sql, []);
@@ -119,9 +135,26 @@ const getRanking = async () => {
 const saveAttacks = async (attack) => {
     const connection = await conn.connection();
 
-    const sql = "INSERT INTO ATTACKS (tag,clan,war,stars,percentage,duration) VALUES (?,?,?,?,?,?)";
+    const sql = "INSERT INTO ATTACKS (tag,clan,war,stars,percentage,duration,attack_number) VALUES (?,?,?,?,?,?,?)";
     try {
-        const [rows, fields] = await connection.execute(sql, [attack.player, attack.clan, attack.id, attack.stars, attack.percentage, attack.duration]);
+        const [rows, fields] = await connection.execute(sql, [attack.player, attack.clan, attack.id, attack.stars, attack.percentage, attack.duration, attack.attack_number]);
+        return rows
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+}
+
+const saveDefences = async (defence) => {
+    const connection = await conn.connection();
+
+    const sql = "INSERT INTO DEFENCES (tag,clan,war,stars,percentage,duration) VALUES (?,?,?,?,?,?)";
+    try {
+        const [rows, fields] = await connection.execute(sql, [defence.player, defence.clan, defence.id, defence.stars, defence.percentage, defence.duration]);
         return rows
         
     } catch(err){
@@ -219,7 +252,6 @@ const updateWar = async (id, war) => {
 
     try {
         const [rows, fields] = await connection.execute(updateQuery, updateValues);
-        console.log(rows)
         return true;
         
     } catch(err){
@@ -247,4 +279,4 @@ const updateWarNoId = async (next_round, fase, next_round_team, winner) => {
     return false;
 }
 
-module.exports = { getGroups, getRanking, getWar, getWarAttacks, getWars, getFaseDetails, createLeagueWars, createPlayoffWars, restartTournament, updateWar, updateWarNoId, saveAttacks };
+module.exports = { createLeagueWars, createPlayoffWars, getGroups, getRanking, getWar, getWarAttacks, getWarEnded, getWars, getFaseDetails, restartTournament, saveAttacks, saveDefences, updateWar, updateWarNoId };

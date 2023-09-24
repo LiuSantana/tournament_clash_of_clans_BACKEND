@@ -40,6 +40,20 @@ const getWarAttacks = async (req, res) => {
     }
 };
 
+const getWarEnded = async (req, res) => {
+    try {
+        let id = req.params.id;
+        if(id){
+            const wars = await warService.getWarEnded(id);
+            if(wars && wars.length>0) res.status(200).send({data:wars});
+            else res.status(404).send({'error':'No war found'})
+        } else res.status(422).send({error:'war id not found'})
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({'error':'Internal server error'});
+    }
+}
+
 /******************
  *     POSTS
 ******************/
@@ -135,9 +149,6 @@ const checkPlayoffFormat = (fase, error, lastFaseTeams) => {
  *  END WAR
  ***********/
 const endWar = async (req, res) => {
-    // TODO: get war from db by id
-    // TODO: retrieve war from clash API
-    // TODO: check actual fase status
 
     const id = req.params.id;
     if(id){
@@ -151,9 +162,14 @@ const endWar = async (req, res) => {
                             const attacks = [];
                             getAttacks(id, warJSON.clan, attacks);
                             getAttacks(id, warJSON.opponent, attacks);
+                            const defences = [];
+                            getDefences(id, warJSON.clan, defences);
+                            getDefences(id, warJSON.opponent, defences);
                             
                             // SAVE ATTACKS IN BD
                             await warService.saveAttacks(attacks);
+                            // SAVE DEFENCES IN BD
+                            await warService.saveDefences(defences);
                             await warService.updateWar(id, {state:'finished'});
 
                             if(war.format == 'league'){
@@ -189,11 +205,25 @@ const getAttacks = (id, JSON, attacks) => {
         const player = m.tag;
         if(m.attacks) {
             m.attacks.forEach( a => {
-                attacks.push({id, clan, player, stars:a.stars, percentage:a.destructionPercentage, duration:a.duration})
+                attacks.push({id, clan, player, stars:a.stars, percentage:a.destructionPercentage, duration:a.duration, attack_number:m.attacks.indexOf(a)+1});
             })
         }
     });
 }
+/**
+ * get best opponent attack for each base
+ * @param {JSON} JSON 
+ * @param {ARRAY} defences 
+ */
+const getDefences = (id, JSON, defences) => {
+    const clan = JSON.tag;
+    JSON.members.forEach( m => {
+        const player = m.tag;
+        if(m.bestOpponentAttack) {
+            let a = m.bestOpponentAttack;
+            defences.push({id, clan, player, stars:a.stars, percentage:a.destructionPercentage, duration:a.duration});
+        }
+    });
+}
 
-
-module.exports = { createTournament, getRanking, getWarAttacks, getWars, endWar };
+module.exports = { createTournament, getRanking, getWarAttacks, getWarEnded, getWars, endWar };
