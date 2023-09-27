@@ -149,7 +149,7 @@ const checkPlayoffFormat = (fase, error, lastFaseTeams) => {
  *  END WAR
  ***********/
 const endWar = async (req, res) => {
-
+    console.log('AAAAAAAAA')
     const id = req.params.id;
     if(id){
         try {
