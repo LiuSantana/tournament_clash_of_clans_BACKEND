@@ -22,11 +22,6 @@ const getWar_prodution = async (clanA, clanB) => {
         if(response.status == 200) {
             if (response.data.state == 'warEnded'){
                 war = response.data;
-                console.log(war);
-                console.log(clanA);
-                console.log(clanB);
-                console.log(`${war.clan.tag} == ${clanA}`)
-                console.log(`${war.opponent.tag} == ${clanB}`)
                 if(war.clan.tag == clanA && war.opponent.tag == clanB) {
                     result = war;
                 } else result = { error: 'Los clanes que participan en la guerra no son los correspondeintes.'}

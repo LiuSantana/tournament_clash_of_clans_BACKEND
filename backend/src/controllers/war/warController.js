@@ -149,7 +149,6 @@ const checkPlayoffFormat = (fase, error, lastFaseTeams) => {
  *  END WAR
  ***********/
 const endWar = async (req, res) => {
-    console.log('AAAAAAAAA')
     const id = req.params.id;
     if(id){
         try {
@@ -169,17 +168,17 @@ const endWar = async (req, res) => {
                             getDefences(id, warJSON.opponent, defences);
                             
                             // SAVE ATTACKS IN BD
-                            // await warService.saveAttacks(attacks);
+                            await warService.saveAttacks(attacks);
                             // SAVE DEFENCES IN BD
-                            // await warService.saveDefences(defences);
-                            // await warService.updateWar(id, {state:'finished'});
+                            await warService.saveDefences(defences);
+                            await warService.updateWar(id, {state:'finished'});
 
                             if(war.format == 'league'){
                                 if(war.last_match == 1) { // check if it is the last match of the fase
-                                    // await warService.setFaseWars(parseInt(war.fase)+1)
+                                    await warService.setFaseWars(parseInt(war.fase)+1)
                                 } // league matches doesnt influence the other mathces
                             } else { // playoff -> winner to next round
-                                // await warService.setNextPlayoffMatch(war, attacks);
+                                await warService.setNextPlayoffMatch(war, attacks);
                             }
 
                             res.status(200).send({data: 'OK'})
