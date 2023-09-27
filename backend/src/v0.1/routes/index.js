@@ -68,7 +68,8 @@ router.post('/wars/:id', warController.endWar);
 /**********************
  *      ATTACKS
 **********************/
-
+const attackController = require("../../controllers/attack/attackController");
+router.get('/attacks', attackController.getAttacks);
 // TODO: EDIT ATTACK
 
 
