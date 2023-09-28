@@ -42,6 +42,7 @@ const saveAttacks = async (attacks) => {
     console.log('------------')
     console.log(attacks);
     for(let i = 0; i < attacks.length; i++) {
+        console.log(i)
         try {
             await warDatabase.saveAttacks(attacks[i]);
         } catch(e){}
@@ -54,6 +55,7 @@ const saveDefences = async (defences) => {
     console.log('------------')
     console.log(defences);
     for(let i = 0; i < defences.length; i++) {
+        console.log(i)
         try {
             await warDatabase.saveDefences(defences[i]);
         } catch(e){}
