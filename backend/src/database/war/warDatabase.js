@@ -134,6 +134,8 @@ const getRanking = async () => {
 
 const saveAttacks = async (attack) => {
     const connection = await conn.connection();
+    console.log('################')
+    console.log(attack)
 
     const sql = "INSERT INTO ATTACKS (tag,clan,war,stars,percentage,duration,attack_number) VALUES (?,?,?,?,?,?,?)";
     try {
@@ -141,7 +143,7 @@ const saveAttacks = async (attack) => {
         return rows
         
     } catch(err){
-        console.error(err);
+        console.error(err.sql);
 
     } finally {
         connection.release();
@@ -151,6 +153,8 @@ const saveAttacks = async (attack) => {
 
 const saveDefences = async (defence) => {
     const connection = await conn.connection();
+    console.log('################')
+    console.log(defence)
 
     const sql = "INSERT INTO DEFENCES (tag,clan,war,stars,percentage,duration) VALUES (?,?,?,?,?,?)";
     try {
@@ -158,7 +162,7 @@ const saveDefences = async (defence) => {
         return rows
         
     } catch(err){
-        console.error(err);
+        console.error(err.sql);
 
     } finally {
         connection.release();
