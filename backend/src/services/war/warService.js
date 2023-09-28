@@ -37,6 +37,7 @@ const getWarEnded = async (id) => {
 /* GLOBAL ACTIONS */
 
 const saveAttacks = async (attacks) => {
+    console.log(attacks);
     for(let i = 0; i < attacks.length; i++) {
         try {
             await warDatabase.saveAttacks(attacks[i]);
@@ -45,6 +46,7 @@ const saveAttacks = async (attacks) => {
     return true;
 }
 const saveDefences = async (defences) => {
+    console.log(defences);
     for(let i = 0; i < defences.length; i++) {
         try {
             await warDatabase.saveDefences(defences[i]);
