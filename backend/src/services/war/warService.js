@@ -37,6 +37,9 @@ const getWarEnded = async (id) => {
 /* GLOBAL ACTIONS */
 
 const saveAttacks = async (attacks) => {
+    console.log('------------')
+    console.log('attacks')
+    console.log('------------')
     console.log(attacks);
     for(let i = 0; i < attacks.length; i++) {
         try {
@@ -46,6 +49,9 @@ const saveAttacks = async (attacks) => {
     return true;
 }
 const saveDefences = async (defences) => {
+    console.log('------------')
+    console.log('defences')
+    console.log('------------')
     console.log(defences);
     for(let i = 0; i < defences.length; i++) {
         try {
