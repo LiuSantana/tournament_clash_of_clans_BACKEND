@@ -160,6 +160,7 @@ const endWar = async (req, res) => {
                 if(war.state == 'to start') {
                     const warJSON = await clash_API.getWar(war.clan_A, war.clan_B);
                     if(warJSON) {
+                        console.log(warJSON)
                         if(!warJSON.error) {
                             const attacks = [];
                             getAttacks(id, warJSON.clan, attacks);
