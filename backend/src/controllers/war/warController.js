@@ -151,6 +151,7 @@ const checkPlayoffFormat = (fase, error, lastFaseTeams) => {
 const endWar = async (req, res) => {
 
     const id = req.params.id;
+    console.log(id);
     if(id){
         try {
             const war = await warService.getWar(id);
