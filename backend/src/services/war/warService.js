@@ -38,13 +38,17 @@ const getWarEnded = async (id) => {
 
 const saveAttacks = async (attacks) => {
     for(let i = 0; i < attacks.length; i++) {
-        await warDatabase.saveAttacks(attacks[i]);
+        try {
+            await warDatabase.saveAttacks(attacks[i]);
+        } catch(e){}
     }
     return true;
 }
 const saveDefences = async (defences) => {
     for(let i = 0; i < defences.length; i++) {
-        await warDatabase.saveDefences(defences[i]);
+        try {
+            await warDatabase.saveDefences(defences[i]);
+        } catch(e){}
     }
     return true;
 } 
