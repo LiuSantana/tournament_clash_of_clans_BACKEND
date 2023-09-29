@@ -237,4 +237,19 @@ const defaultWar = async (req, res) => {
     } else res.status(422).send({error:'wars are not well-formed'});
 }
 
-module.exports = { createTournament,defaultWar, getRanking, getWarAttacks, getWarEnded, getWars, endWar };
+
+/******************
+ *     PATCHS
+******************/
+const updateWarAttacks = async (req, res) => {
+    const attacks = req.body;
+    if(attacks.length > 0) {
+        try {
+            await warService.updateWarAttacks(attacks);
+            res.status(200).send({data:'OK'});
+        } catch(e){ res.status(500).send({error:'Internal server error'}); }
+    } else res.status(422).send({error:'Any attack was send'});
+}
+
+
+module.exports = { createTournament,defaultWar, getRanking, getWarAttacks, getWarEnded, getWars, endWar, updateWarAttacks };

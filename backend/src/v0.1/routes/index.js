@@ -62,6 +62,8 @@ router.get('/wars/:id/results', warController.getWarEnded);
 router.post('/wars', warController.createTournament);
 router.post('/wars/default', warController.defaultWar);
 router.post('/wars/:id', warController.endWar);
+
+router.patch('/wars/attacks', warController.updateWarAttacks);
 // TODO: NEW WAR SANCTION
 
 // TODO: DELETE WAR SANCTION

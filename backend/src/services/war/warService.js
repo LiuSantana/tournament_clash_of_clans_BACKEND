@@ -291,6 +291,15 @@ const getNextRoundLocalorVisitant = (round) => {
     if (round % 2 === 0) result = 'clan_A';
     else result = 'clan_B';
     return result;
-  };
+};
 
-module.exports = { defaultWar, getWar, getRanking, getWarAttacks,getWarEnded, getWars, firstFase, consecutiveFase, restartTournament, saveAttacks, saveDefences, setFaseWars, setNextPlayoffMatch, updateWar };
+
+const updateWarAttacks = async (attacks) => {
+    for(let i = 0; i < attacks.length; i++) {
+        try{
+            await warDatabase.updateWarAttack(attacks[i]);
+        } catch (e) {}
+    }
+}
+
+module.exports = { defaultWar, getWar, getRanking, getWarAttacks,getWarEnded, getWars, firstFase, consecutiveFase, restartTournament, saveAttacks, saveDefences, setFaseWars, setNextPlayoffMatch, updateWarAttacks, updateWar };

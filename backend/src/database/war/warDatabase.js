@@ -280,4 +280,20 @@ const updateWarNoId = async (next_round, fase, next_round_team, winner) => {
     return false;
 }
 
-module.exports = { createLeagueWars, createPlayoffWars, getGroups, getRanking, getWar, getWarAttacks, getWarEnded, getWars, getFaseDetails, restartTournament, saveAttacks, saveDefences, updateWar, updateWarNoId };
+const updateWarAttack = async (attack) => {
+    const connection = await conn.connection();
+    const sql = `UPDATE ATTACKS SET stars = ?, percentage = ? WHERE tag = ? AND clan = ? AND war = ?`;
+    try {
+        const [rows, fields] = await connection.execute(sql, [attack.stars, attack.percentage, attack.tag, attack.clan, attack.war]);
+        return true;
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+}
+
+module.exports = { createLeagueWars, createPlayoffWars, getGroups, getRanking, getWar, getWarAttacks, getWarEnded, getWars, getFaseDetails, restartTournament, saveAttacks, saveDefences, updateWarAttack, updateWar, updateWarNoId };
