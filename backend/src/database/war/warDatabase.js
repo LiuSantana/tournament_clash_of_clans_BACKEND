@@ -150,6 +150,7 @@ const saveAttacks = async (attack) => {
 }
 
 const saveDefences = async (defence) => {
+    console.log(defence)
     const connection = await conn.connection();
 
     const sql = "INSERT INTO DEFENCES (tag,clan,war,stars,percentage,duration) VALUES (?,?,?,?,?,?)";

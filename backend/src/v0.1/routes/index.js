@@ -60,6 +60,7 @@ router.get('/wars/ranking', warController.getRanking);
 router.get('/wars/:id/results', warController.getWarEnded);
 
 router.post('/wars', warController.createTournament);
+router.post('/wars/default', warController.defaultWar);
 router.post('/wars/:id', warController.endWar);
 // TODO: NEW WAR SANCTION
 

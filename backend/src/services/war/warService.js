@@ -53,6 +53,12 @@ const saveDefences = async (defences) => {
     return true;
 } 
 
+const defaultWar = async (wars) => {
+    await warDatabase.saveDefences(wars[0]);
+    await warDatabase.saveDefences(wars[1]);
+    return true;
+}
+
 const leagueGroups = (clans, clansGroup, groups) => {
     const groups_obj = [];
     const abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -287,4 +293,4 @@ const getNextRoundLocalorVisitant = (round) => {
     return result;
   };
 
-module.exports = { getWar, getRanking, getWarAttacks,getWarEnded, getWars, firstFase, consecutiveFase, restartTournament, saveAttacks, saveDefences, setFaseWars, setNextPlayoffMatch, updateWar };
+module.exports = { defaultWar, getWar, getRanking, getWarAttacks,getWarEnded, getWars, firstFase, consecutiveFase, restartTournament, saveAttacks, saveDefences, setFaseWars, setNextPlayoffMatch, updateWar };
