@@ -1,7 +1,7 @@
 const conn = require('../mysql');
 
 const registrationState = async () => {
-    return false;
+    return true;
 }
 
 module.exports = { registrationState };
