@@ -56,6 +56,7 @@ const saveDefences = async (defences) => {
 const defaultWar = async (wars) => {
     await warDatabase.saveDefences(wars[0]);
     await warDatabase.saveDefences(wars[1]);
+    await warDatabase.setWarFinished(wars[0].id);
     return true;
 }
 
@@ -185,6 +186,10 @@ const playoffFase = async (fase) => {
         return false;
     }
 }
+const sanctionWar = async (sanction) => {
+    const result = await warDatabase.sanctionWar(sanction);
+    return result;
+}
 
 /******************
  *    DELETE
@@ -302,4 +307,4 @@ const updateWarAttacks = async (attacks) => {
     }
 }
 
-module.exports = { defaultWar, getWar, getRanking, getWarAttacks,getWarEnded, getWars, firstFase, consecutiveFase, restartTournament, saveAttacks, saveDefences, setFaseWars, setNextPlayoffMatch, updateWarAttacks, updateWar };
+module.exports = { defaultWar, getWar, getRanking, getWarAttacks,getWarEnded, getWars, firstFase, consecutiveFase, restartTournament, sanctionWar, saveAttacks, saveDefences, setFaseWars, setNextPlayoffMatch, updateWarAttacks, updateWar };

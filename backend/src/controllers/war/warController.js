@@ -237,6 +237,16 @@ const defaultWar = async (req, res) => {
     } else res.status(422).send({error:'wars are not well-formed'});
 }
 
+const sanctionWar = async (req, res) => {
+    const sanction = req.body;
+    if(sanction){
+        try {
+            let result = await warService.sanctionWar(sanction);
+            if(result) res.status(200).send({data:'OK'});
+            else res.status(403).sned({error:'Sanction could not be created'})
+        } catch(e){ res.status(500).send({error:'Internal server error'}); }
+    } else res.status(422).send({error:'empty sanction'});
+}
 
 /******************
  *     PATCHS
@@ -252,4 +262,4 @@ const updateWarAttacks = async (req, res) => {
 }
 
 
-module.exports = { createTournament,defaultWar, getRanking, getWarAttacks, getWarEnded, getWars, endWar, updateWarAttacks };
+module.exports = { createTournament,defaultWar, getRanking, getWarAttacks, getWarEnded, getWars, endWar, sanctionWar, updateWarAttacks };

@@ -148,9 +148,41 @@ const saveAttacks = async (attack) => {
     }
     return false;
 }
+const setWarFinished = async (id) => {
+    const connection = await conn.connection();
+
+    const sql = "UPDATE WAR set state = 'finished' where id = ?";
+    try {
+        const [rows, fields] = await connection.execute(sql, [id]);
+        return rows
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+}
+
+const sanctionWar = async (sanction) => {
+    const connection = await conn.connection();
+
+    const sql = "INSERT INTO SANCTION (tag,war,stars,percentage) VALUES (?,?,?,?)";
+    try {
+        const [rows, fields] = await connection.execute(sql, [sanction.tag, sanction.war, sanction.stars, sanction.percentage]);
+        return rows
+        
+    } catch(err){
+        console.error(err);
+
+    } finally {
+        connection.release();
+    }
+    return false;
+}
 
 const saveDefences = async (defence) => {
-    console.log(defence)
     const connection = await conn.connection();
 
     const sql = "INSERT INTO DEFENCES (tag,clan,war,stars,percentage,duration) VALUES (?,?,?,?,?,?)";
@@ -296,4 +328,4 @@ const updateWarAttack = async (attack) => {
     return false;
 }
 
-module.exports = { createLeagueWars, createPlayoffWars, getGroups, getRanking, getWar, getWarAttacks, getWarEnded, getWars, getFaseDetails, restartTournament, saveAttacks, saveDefences, updateWarAttack, updateWar, updateWarNoId };
+module.exports = { createLeagueWars, createPlayoffWars, getGroups, getRanking, getWar, getWarAttacks, getWarEnded, getWars, getFaseDetails, restartTournament,setWarFinished, sanctionWar, saveAttacks, saveDefences, updateWarAttack, updateWar, updateWarNoId };
