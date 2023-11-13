@@ -227,7 +227,7 @@ const getDefences = (id, JSON, defences) => {
 }
 
 const defaultWar = async (req, res) => {
-    
+    console.log('BBBBBB')
     await warService.setFaseWars(2)
     /* const wars = req.body;
     if(wars.length == 2) {
