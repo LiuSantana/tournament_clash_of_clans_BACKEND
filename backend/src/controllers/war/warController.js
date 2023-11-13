@@ -227,7 +227,9 @@ const getDefences = (id, JSON, defences) => {
 }
 
 const defaultWar = async (req, res) => {
-    const wars = req.body;
+    
+    await warService.setFaseWars(2)
+    /* const wars = req.body;
     if(wars.length == 2) {
         try{
             let result = await warService.defaultWar(wars);
@@ -235,7 +237,7 @@ const defaultWar = async (req, res) => {
             if(result) {res.status(200).send({data:'OK'});}
             else {res.status(403).send({error:'Forbidden'});}
         } catch(e){ res.status(500).send({error:'Internal server error'}) }
-    } else res.status(422).send({error:'wars are not well-formed'});
+    } else res.status(422).send({error:'wars are not well-formed'}); */
 }
 
 const sanctionWar = async (req, res) => {
