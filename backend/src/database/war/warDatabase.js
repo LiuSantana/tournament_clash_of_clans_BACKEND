@@ -276,6 +276,8 @@ const updateWar = async (id, war) => {
       updateQuery += ` ${field} = ?,`;
       updateValues.push(war[field]);
     }
+    console.log('------');
+    console.log(updateQuery);
     
     updateQuery = updateQuery.slice(0, -1); // delete last ','
     updateQuery += ' WHERE id = ?';
