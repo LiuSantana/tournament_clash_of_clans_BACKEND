@@ -209,6 +209,7 @@ const updateWar = async (id, war) => {
 
 /* NEW FASE WARS */
 const setFaseWars = async (fase) => {
+    console.log('AAAAAAA')
     // TODO: CHECK NEW FASE FORMAT
     const faseDetails = await warDatabase.getFaseDetails(fase, fase-1);
     // playoff case
@@ -236,6 +237,7 @@ const setPlayOffWars = async (warsDB, fase) => {
         match2Groups(teams_group, wars, groups[i].teams,groups[i+1].teams);
     }
     shuffleArray(wars);
+    console.log(wars)
 
     
     for (let i=0; i < actualFase.length; i++) {
