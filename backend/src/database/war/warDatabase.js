@@ -41,8 +41,8 @@ const getFaseDetails = async (fase, lastFase) => {
     const connection = await conn.connection();
 
     sql = `select *,
-        (select count(distinct(tournament_group)) from war where fase = ? AND (round LIKE 'R1%' || round = '-' || round = NULL)) as num_groups
-        from war
+        (select count(distinct(tournament_group)) from WAR where fase = ? AND (round LIKE 'R1%' || round = '-' || round = NULL)) as num_groups
+        from WAR
         where (fase = ? || fase = ?) AND (round LIKE 'R1%' || round = '-' || round = NULL);`
     try {
         const [rows, fields] = await connection.execute(sql, [lastFase, fase, lastFase]);
