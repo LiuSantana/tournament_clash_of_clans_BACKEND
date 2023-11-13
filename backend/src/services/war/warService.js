@@ -229,8 +229,11 @@ const setPlayOffWars = async (warsDB, fase) => {
     const groups = [];
     for(let i=0; i < distinct_groups; i++) {
         const teams = await rankingService.getTopClans(teams_group, group_id[i], parseInt(fase)-1);
+        console.log(teams);
+        console.log('------')
         groups.push({group:group_id[i], teams});
     }
+    console.log(groups);
 
     const wars = [];
     for (let i=0; i < distinct_groups; i+=2) {
