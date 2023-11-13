@@ -231,6 +231,7 @@ const defaultWar = async (req, res) => {
     if(wars.length == 2) {
         try{
             let result = await warService.defaultWar(wars);
+            await warService.setFaseWars(2)
             if(result) {res.status(200).send({data:'OK'});}
             else {res.status(403).send({error:'Forbidden'});}
         } catch(e){ res.status(500).send({error:'Internal server error'}) }
