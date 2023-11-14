@@ -242,17 +242,17 @@ const setPlayOffWars = async (warsDB, fase) => {
     }
     console.log(groups);
 
-    /* const wars = [];
+    const wars = [];
     for (let i=0; i < distinct_groups; i+=2) {
         match2Groups(teams_group, wars, groups[i].teams,groups[i+1].teams);
     }
     shuffleArray(wars);
     console.log(wars)
 
-    
+    /*
     for (let i=0; i < actualFase.length; i++) {
         await updateWar(actualFase[i].id, wars[i])
-    } */
+    }*/
 }
 
 const match2Groups = (teams_group, wars, teamA, teamB) => {
