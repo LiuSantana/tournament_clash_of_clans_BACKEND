@@ -226,11 +226,12 @@ const setPlayOffWars = async (warsDB, fase) => {
     const actualFase = warsDB.filter(obj => obj.fase === fase);
 
     const num_teams = parseInt(actualFase.length)*2;
-    const distinct_groups = warsDB[0].num_groups;
+    // const distinct_groups = warsDB[0].num_groups;
+    const distinct_groups = 1;
     const teams_group = num_teams/distinct_groups;
 
     const groups = [];
-    for(let i=-1; i < distinct_groups; i++) {
+    for(let i=0; i < distinct_groups; i++) {
         console.log(teams_group)
         console.log(group_id[i])
         console.log(parseInt(fase)-1)
