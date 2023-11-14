@@ -219,6 +219,8 @@ const setFaseWars = async (fase) => {
 
 const setPlayOffWars = async (warsDB, fase) => {
     const group_id = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    console.log('########################')
+    console.log(warsDB)
 
     const actualFase = warsDB.filter(obj => obj.fase === fase);
 
