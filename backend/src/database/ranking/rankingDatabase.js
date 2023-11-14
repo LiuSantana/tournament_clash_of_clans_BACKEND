@@ -7,7 +7,7 @@ const conn = require('../mysql');
 const getTopClans = async (num_clans, group,  fase) => {
     const connection = await conn.connection();
 
-    const sql = "SELECT clan from clasification_view where fase = ? AND tournament_group = ? order by win DESC, draw DESC, stars DESC, percentage DESC, duration LIMIT ?";
+    const sql = "SELECT clan from CLASIFICATION_VIEW where fase = ? AND tournament_group = ? order by win DESC, draw DESC, stars DESC, percentage DESC, duration LIMIT ?";
     try {
         const [rows, fields] = await connection.execute(sql, [fase, group, num_clans]);
         return rows
