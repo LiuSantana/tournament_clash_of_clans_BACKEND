@@ -243,8 +243,8 @@ const setPlayOffWars = async (warsDB, fase) => {
     console.log(groups);
 
     const wars = [];
-    distinct_groups = 18;
-    for (let i=0; i < distinct_groups; i+=2) {
+    let teams = 18;
+    for (let i=0; i < teams; i+=2) {
         console.log(`${i} - ${i+1}`);
         //match2Groups(teams_group, wars, groups[i].teams,groups[i+1].teams);
     }
