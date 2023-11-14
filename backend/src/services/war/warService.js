@@ -245,8 +245,7 @@ const setPlayOffWars = async (warsDB, fase) => {
     const wars = [];
     let teams = 18;
     for (let i=0; i < teams; i+=2) {
-        console.log(`${i} - ${i+1}`);
-        //match2Groups(teams_group, wars, groups[i].teams,groups[i+1].teams);
+        match2Groups(teams_group, wars, groups[i].teams,groups[i+1].teams);
     }
     shuffleArray(wars);
     console.log(wars)
