@@ -241,6 +241,7 @@ const setPlayOffWars = async (warsDB, fase) => {
         groups.push({group:group_id[i], teams});
     }
     console.log(groups);
+    console.l0g('AAAAAAAA')
 
     const wars = [];
     let teams = 18;
